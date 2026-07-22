@@ -1,0 +1,252 @@
+/* Admin Panel Styles */
+.admin-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.3) transparent;
+}
+.admin-sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.admin-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.3);
+  border-radius: 4px;
+}
+
+.admin-content {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.3) transparent;
+}
+.admin-content::-webkit-scrollbar {
+  width: 6px;
+}
+.admin-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-content::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.3);
+  border-radius: 4px;
+}
+
+.admin-table th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Stat card shimmer */
+.stat-card {
+  position: relative;
+  overflow: hidden;
+}
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent);
+  transition: left 0.5s;
+}
+.stat-card:hover::after {
+  left: 100%;
+}
+
+/* Lead pipeline colors */
+.pipeline-new { border-left: 3px solid #3B82F6; }
+.pipeline-contacted { border-left: 3px solid #F59E0B; }
+.pipeline-qualified { border-left: 3px solid #8B5CF6; }
+.pipeline-site_visit { border-left: 3px solid #06B6D4; }
+.pipeline-negotiation { border-left: 3px solid #F97316; }
+.pipeline-won { border-left: 3px solid #10B981; }
+.pipeline-lost { border-left: 3px solid #EF4444; }
+
+/* Admin input styles */
+.admin-input {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  color: #F1F5F9;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  width: 100%;
+}
+.admin-input:focus {
+  outline: none;
+  border-color: #1E6B3A;
+  box-shadow: 0 0 0 2px rgba(30, 107, 58, 0.15);
+}
+.admin-input::placeholder {
+  color: #475569;
+}
+
+/* Admin select */
+.admin-select {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(71, 85, 105, 0.5);
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  color: #F1F5F9;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem;
+}
+.admin-select:focus {
+  outline: none;
+  border-color: #1E6B3A;
+  box-shadow: 0 0 0 2px rgba(30, 107, 58, 0.15);
+}
+
+/* Admin button */
+.btn-admin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-admin-primary {
+  background: #1E6B3A;
+  color: white;
+}
+.btn-admin-primary:hover {
+  background: #166B32;
+}
+.btn-admin-secondary {
+  background: rgba(71, 85, 105, 0.2);
+  color: #CBD5E1;
+  border: 1px solid rgba(71, 85, 105, 0.4);
+}
+.btn-admin-secondary:hover {
+  background: rgba(71, 85, 105, 0.35);
+}
+.btn-admin-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: #F87171;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+.btn-admin-danger:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+
+/* Admin card */
+.admin-card {
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid rgba(71, 85, 105, 0.3);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(8px);
+}
+
+/* Badge styles */
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.badge-new { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+.badge-contacted { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+.badge-qualified { background: rgba(139, 92, 246, 0.15); color: #A78BFA; }
+.badge-site_visit { background: rgba(6, 182, 212, 0.15); color: #22D3EE; }
+.badge-negotiation { background: rgba(249, 115, 22, 0.15); color: #FB923C; }
+.badge-won { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+.badge-lost { background: rgba(239, 68, 68, 0.15); color: #F87171; }
+.badge-published { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+.badge-draft { background: rgba(100, 116, 139, 0.2); color: #94A3B8; }
+.badge-pending { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+.badge-confirmed { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+.badge-completed { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+.badge-cancelled { background: rgba(239, 68, 68, 0.15); color: #F87171; }
+.badge-active { background: rgba(16, 185, 129, 0.15); color: #34D399; }
+.badge-inactive { background: rgba(100, 116, 139, 0.2); color: #94A3B8; }
+.badge-ongoing { background: rgba(59, 130, 246, 0.15); color: #60A5FA; }
+.badge-upcoming { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+
+/* Priority badges */
+.badge-high { background: rgba(239, 68, 68, 0.15); color: #F87171; }
+.badge-medium { background: rgba(245, 158, 11, 0.15); color: #FBBF24; }
+.badge-low { background: rgba(100, 116, 139, 0.2); color: #94A3B8; }
+
+/* Command Palette Scrollbar */
+.admin-command-palette-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.2) transparent;
+}
+.admin-command-palette-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.admin-command-palette-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-command-palette-scroll::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.2);
+  border-radius: 4px;
+}
+.admin-command-palette-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.4);
+}
+
+/* Custom scrollbar for dark admin panels */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.25) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.25);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.45);
+}
+
+/* Admin scrollbar (alias for chat panels) */
+.admin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(100, 116, 139, 0.25) transparent;
+}
+.admin-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
+.admin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.admin-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.25);
+  border-radius: 4px;
+}
+.admin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.45);
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

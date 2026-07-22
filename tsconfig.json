@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "noImplicitAny": false,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    ".next-audit/types/**/*.ts",
+    ".next-audit/dev/types/**/*.ts",
+    ".next-verify/types/**/*.ts",
+    ".next-verify/dev/types/**/*.ts",
+    ".next-verify-dev/types/**/*.ts",
+    ".next-verify-dev/dev/types/**/*.ts",
+    ".next-deploy/types/**/*.ts",
+    ".next-deploy/dev/types/**/*.ts",
+    ".next-ctl/types/**/*.ts",
+    ".next-ctl/dev/types/**/*.ts",
+    ".next-verify-build/types/**/*.ts",
+    ".next-verify-build/dev/types/**/*.ts",
+    ".next-analyze/types/**/*.ts",
+    ".next-analyze/dev/types/**/*.ts",
+    ".next-perf-check/types/**/*.ts",
+    ".next-perf-check/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "examples"
+  ]
+}

@@ -1,0 +1,1410 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-data), 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-heading: var(--font-heading);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius: 0.375rem;
+}
+
+:root {
+  --radius: 0.375rem;
+  --background: #FFFFFF;
+  --foreground: #1A202C;
+  --card: #FFFFFF;
+  --card-foreground: #1A202C;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A202C;
+  --primary: #1E6B3A;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F1F5F9;
+  --secondary-foreground: #334155;
+  --muted: #F8FAFB;
+  --muted-foreground: #64748B;
+  --accent: #E8F5ED;
+  --accent-foreground: #145229;
+  --destructive: #DC2626;
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #1E6B3A;
+  --chart-1: #1E6B3A;
+  --chart-2: #28945A;
+  --chart-3: #145229;
+  --chart-4: #94A3B8;
+  --chart-5: #1A202C;
+  --sidebar: #F8FAFB;
+  --sidebar-foreground: #334155;
+  --sidebar-primary: #1E6B3A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E8F5ED;
+  --sidebar-accent-foreground: #145229;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #1E6B3A;
+
+  /* ── Quiet-luxury design tokens (Shanta-grade restraint) ── */
+  --paper: #FAF9F6;         /* warm ivory — page/section background */
+  --paper-deep: #F3F1EB;    /* alternate section tint */
+  --forest-950: #0A120E;    /* near-black green — dark bands, footer */
+  --forest-900: #101E17;
+  --brand: #1A5C33;         /* action: buttons, links — deepened */
+  --brand-deep: #124024;
+  --gold: #A98B4F;          /* muted brass: hairlines only, never large text */
+  --gold-light: #C7AE79;
+  --ink: #121814;           /* headings — green-cast black */
+  --ink-muted: #4A544E;     /* body — green-cast gray */
+  --ink-soft: #707A72;      /* captions */
+
+  /* Elevation scale */
+  --shadow-sm: 0 1px 2px rgba(19, 27, 22, 0.05), 0 2px 8px rgba(19, 27, 22, 0.04);
+  --shadow-md: 0 2px 6px rgba(19, 27, 22, 0.06), 0 10px 28px rgba(19, 27, 22, 0.09);
+  --shadow-lg: 0 4px 12px rgba(19, 27, 22, 0.08), 0 24px 60px rgba(19, 27, 22, 0.15);
+
+  /* Motion */
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Always reserve the scrollbar gutter. Radix Select/Dialog lock body
+       scroll while open, which removes the vertical scrollbar; without a
+       reserved gutter the viewport widens by the scrollbar width and the
+       whole page shifts sideways — the "vibrate" when a hero search field is
+       clicked. Reserving it keeps layout width constant open or closed. */
+    scrollbar-gutter: stable;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body), system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    line-height: 1.6;
+    letter-spacing: -0.011em;
+  }
+  /* Typography Scale — Premium Hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), 'Georgia', 'Times New Roman', serif;
+    font-feature-settings: 'liga' 1, 'dlig' 1;
+    letter-spacing: -0.025em;
+    line-height: 1.12;
+    text-wrap: balance;
+  }
+  h1 {
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-weight: 500;
+  }
+  h2 {
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    font-weight: 500;
+  }
+  h3 {
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+  h4 {
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    font-weight: 500;
+  }
+  p, li, td, th, span, label, a, button, input, textarea, select {
+    font-family: var(--font-body), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  blockquote {
+    font-family: var(--font-heading), 'Georgia', serif;
+    font-style: italic;
+  }
+  /* Premium label/eyebrow text */
+  .label-premium {
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .label-premium-sm {
+    font-family: var(--font-body), system-ui, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  /* Refined selection color */
+  ::selection {
+    background: rgba(30, 107, 58, 0.15);
+    color: #145229;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F8FAFB;
+}
+::-webkit-scrollbar-thumb {
+  background: #1E6B3A;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #28945A;
+}
+
+/* Green text gradient for headings — more sophisticated */
+.text-gradient-green {
+  background: linear-gradient(135deg, #0D4A22 0%, #1E6B3A 40%, #28945A 70%, #1E6B3A 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Premium gold/amber gradient for hero headline accent */
+.text-gradient-gold {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 40%, #D4B96A 70%, var(--gold) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Accent line separator */
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #1E6B3A, transparent);
+}
+
+/* Subtle glow effect */
+.green-glow {
+  border-color: rgba(30, 107, 58, 0.15);
+}
+
+/* Hero overlay — premium dark overlay for crystal-clear text */
+.hero-overlay {
+  background: linear-gradient(
+    180deg,
+    rgba(5, 20, 10, 0.55) 0%,
+    rgba(5, 20, 10, 0.40) 20%,
+    rgba(5, 20, 10, 0.50) 45%,
+    rgba(5, 20, 10, 0.65) 70%,
+    rgba(5, 20, 10, 0.82) 100%
+  );
+}
+
+/* Section divider */
+.section-divider {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(241, 245, 249, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 25%, rgba(30, 107, 58, 0.06) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* Parallax-ready */
+.parallax-bg {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Fade in animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* ── Hero entrance — pure CSS so the text paints at first-contentful-paint
+   instead of waiting for JS hydration (the H1 is the page's LCP element).
+   The H1 itself animates transform only (never opacity) so its paint is
+   never delayed. Stagger via inline animation-delay. ── */
+@keyframes heroRise {
+  from { transform: translateY(24px); }
+  to { transform: translateY(0); }
+}
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.hero-rise {
+  animation: heroRise 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-fade-up {
+  animation: heroFadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-fade-in {
+  animation: heroFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+/* Hero background reveal — each slide image holds opacity 0 until its bytes
+   have decoded (HeroSection sets inline opacity 1 from the load event), then
+   fades in over the section's dark base. Load-gated rather than a timed
+   animation so a slow download can never pop in abruptly after the fade
+   already ran. FCP/LCP stay at the text paint. */
+.hero-img-fade {
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  /* Failsafe: if JS never wires the load listener (blocked/failed hydration),
+     force the image visible after 6s rather than leaving a dark hero. */
+  animation: heroImgFailsafe 0s ease 6s both;
+}
+@keyframes heroImgFailsafe {
+  to { opacity: 1; }
+}
+
+@keyframes navDrop {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+.nav-drop {
+  animation: navDrop 0.6s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise, .hero-fade-up, .hero-fade-in, .nav-drop {
+    animation: none;
+  }
+}
+
+/* Counter number styling */
+.counter-number {
+  font-family: var(--font-heading), 'Georgia', serif;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+/* Custom button hover glow */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+.btn-primary:hover::before {
+  left: 100%;
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+/* Keep backward compat */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.btn-gold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+.btn-gold:hover::before {
+  left: 100%;
+}
+.btn-gold:hover {
+  filter: brightness(1.1);
+}
+
+/* Project card hover */
+.project-card {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.project-card:hover {
+  transform: translateY(-6px);
+}
+.project-card:hover .project-card-image {
+  transform: scale(1.05);
+}
+.project-card-image {
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Nav glass effect */
+.nav-glass {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Testimonial card */
+.testimonial-card {
+  transition: all 0.3s ease;
+}
+.testimonial-card:hover {
+  border-color: rgba(30, 107, 58, 0.3);
+}
+
+/* Mobile menu overlay */
+.mobile-menu-overlay {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Section reveal animation */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* WhatsApp pulse */
+@keyframes whatsapp-pulse {
+  0% { opacity: 1; }
+  70% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.whatsapp-pulse {
+  animation: whatsapp-pulse 2s infinite;
+}
+
+/* Image loading skeleton */
+.img-skeleton {
+  background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Article prose styling */
+.prose-custom {
+  color: #334155;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+.prose-custom h3 {
+  color: #1A202C;
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-custom p {
+  margin-bottom: 1.25rem;
+}
+.prose-custom ul, .prose-custom ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+.prose-custom li {
+  margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   PREMIUM CSS EFFECTS & ANIMATIONS
+   ======================================== */
+
+.gold-border-card {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 0.625rem;
+  overflow: hidden;
+}
+.gold-border-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.625rem;
+  padding: 1px;
+  background: linear-gradient(135deg, #1E6B3A, transparent 40%, transparent 60%, #166B34);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.gold-border-card:hover::before {
+  opacity: 1;
+}
+
+/* 2. Scroll progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #1E6B3A, #28945A);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+/* 8. Back to top button */
+.back-to-top {
+  position: fixed;
+  /* Stacked above the chat toggle (bottom 96px + 56px button + 18px gap) */
+  bottom: 170px;
+  right: 30px;
+  z-index: 40;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  color: #1E6B3A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+}
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.back-to-top:hover {
+  background: #1E6B3A;
+  color: #FFFFFF;
+  border-color: #1E6B3A;
+}
+/* Hidden on mobile — the bottom tab bar handles navigation there and the
+   floating-widget column is already tall on small screens */
+@media (max-width: 1023px) {
+  .back-to-top {
+    display: none;
+  }
+}
+
+/* 8a. Floating widget offsets — mobile values raise them above the
+   bottom tab bar (4rem + safe area); desktop restores the classic corner */
+.fab-whatsapp {
+  bottom: calc(5rem + env(safe-area-inset-bottom));
+  right: 1rem;
+}
+.fab-chat {
+  bottom: calc(9.5rem + env(safe-area-inset-bottom));
+  right: 1rem;
+}
+.cookie-banner-fixed {
+  bottom: calc(4.5rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 1024px) {
+  .fab-whatsapp {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+  .fab-chat {
+    bottom: 6rem;
+    right: 1.5rem;
+  }
+  .cookie-banner-fixed {
+    bottom: 5rem;
+  }
+}
+
+/* 8b. Native-app feel on touch devices */
+@media (max-width: 1023px) {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+  body {
+    -webkit-touch-callout: none;
+    user-select: none;
+  }
+  /* Text content stays selectable — only chrome/controls feel app-like */
+  p, h1, h2, h3, h4, h5, h6, li, td, input, textarea, blockquote {
+    user-select: text;
+  }
+}
+
+/* 9. Premium input focus ring */
+.premium-input {
+  transition: all 0.3s ease;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  color: #1A202C;
+}
+.premium-input:focus {
+  border-color: #1E6B3A;
+  outline: 2px solid rgba(30, 107, 58, 0.3);
+  outline-offset: 0px;
+}
+.premium-input::placeholder {
+  color: #94A3B8;
+}
+
+/* 10. Image parallax hover */
+.img-parallax-hover {
+  overflow: hidden;
+}
+.img-parallax-hover img {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.img-parallax-hover:hover img {
+  transform: scale(1.1) translateY(-5%);
+}
+
+/* 12. Smooth page transition overlay */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-enter {
+  animation: pageEnter 0.5s ease-out;
+}
+
+/* Marquee announcement bar */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-content {
+  animation: marquee 30s linear infinite;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Subtle pattern for CTA sections */
+.green-pattern-bg {
+  background-image:
+    radial-gradient(circle at 20% 50%, rgba(30, 107, 58, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(30, 107, 58, 0.02) 0%, transparent 50%),
+    radial-gradient(circle at 60% 80%, rgba(30, 107, 58, 0.03) 0%, transparent 50%);
+}
+
+/* Map grid pattern */
+.map-grid-pattern {
+  background-image:
+    linear-gradient(rgba(30, 107, 58, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 107, 58, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* ========================================
+   SESSION 4: ADDITIONAL PREMIUM EFFECTS
+   ======================================== */
+
+/* Glassmorphism card — light theme */
+.glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(30, 107, 58, 0.08);
+}
+
+/* Shimmer line animation */
+@keyframes shimmerLine {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #1E6B3A, #166B34, #1E6B3A, transparent);
+  background-size: 200% 100%;
+  animation: shimmerLine 3s ease-in-out infinite;
+}
+
+/* Subtle pulse glow for status indicators */
+@keyframes pulseGlow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.pulse-glow-gold {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+/* Gradient border with rotation animation */
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+@keyframes rotateBorder {
+  to { --border-angle: 360deg; }
+}
+.animated-gradient-border {
+  position: relative;
+  border-radius: 0.625rem;
+  overflow: hidden;
+}
+.animated-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.625rem;
+  padding: 1px;
+  background: conic-gradient(from var(--border-angle), #1E6B3A, transparent 30%, transparent 70%, #1E6B3A);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: rotateBorder 4s linear infinite;
+}
+
+/* Text gradient animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.text-gradient-animated {
+  background: linear-gradient(135deg, #145229, #1E6B3A, #28945A, #1E6B3A, #145229);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+/* Tabular figures */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Selection color — handled in base layer */
+
+/* Focus visible ring for accessibility */
+*:focus-visible {
+  outline: 2px solid #1E6B3A;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ========================================
+   ADDITIONAL PREMIUM EFFECTS
+   ======================================== */
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Slow rotation for decorative elements */
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1E6B3A #F8FAFB;
+}
+
+/* Slide in animations */
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-left {
+  animation: slideInFromLeft 0.5s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInFromRight 0.5s ease-out forwards;
+}
+
+/* Pulse ring for status indicators */
+@keyframes greenPulseRing {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+.gold-pulse-ring {
+  position: relative;
+}
+.gold-pulse-ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid #1E6B3A;
+  animation: greenPulseRing 2s ease-out infinite;
+  pointer-events: none;
+}
+
+/* ========================================
+   SESSION 5: DESIGN UPGRADE EFFECTS
+   ======================================== */
+
+/* Section transition — smooth fade between white and gray sections */
+.section-fade-top {
+  position: relative;
+}
+.section-fade-top::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to bottom, #F8FAFB, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+.section-fade-bottom {
+  position: relative;
+}
+.section-fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(to top, #F8FAFB, transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Premium card — subtle depth with border and bg layer */
+.premium-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+}
+.premium-card:hover {
+  border-color: rgba(30, 107, 58, 0.25);
+  background: linear-gradient(135deg, #FFFFFF 0%, #F0FDF4 100%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+}
+
+/* Premium card with green top accent */
+.premium-card-accent {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.02);
+}
+.premium-card-accent::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), #1E6B3A, var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.premium-card-accent:hover::before {
+  transform: scaleX(1);
+}
+.premium-card-accent:hover {
+  border-color: rgba(30, 107, 58, 0.2);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 8px 24px rgba(0,0,0,0.04);
+}
+
+/* Premium section header — with label + title + subtitle */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+.section-header .section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+.section-header .section-label::before,
+.section-header .section-label::after {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.section-header .section-label::after {
+  background: linear-gradient(270deg, transparent, var(--gold));
+}
+
+/* Primary button — flat, architectural, letterspaced. No shine, no lift. */
+.btn-premium {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 2.25rem;
+  background: var(--forest-950);
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px solid var(--forest-950);
+  cursor: pointer;
+  transition: background 0.35s var(--ease-expo), border-color 0.35s var(--ease-expo), color 0.35s var(--ease-expo);
+}
+.btn-premium:hover {
+  background: var(--brand-deep);
+  border-color: var(--brand-deep);
+}
+.btn-premium:active {
+  background: var(--forest-900);
+}
+
+/* Outline button — hairline on dark imagery */
+.btn-premium-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 2.25rem;
+  background: transparent;
+  color: #FFFFFF;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background 0.35s var(--ease-expo), border-color 0.35s var(--ease-expo);
+}
+.btn-premium-outline:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+/* Premium divider */
+.divider-premium {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.divider-premium::before,
+.divider-premium::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(30, 107, 58, 0.2), transparent);
+}
+
+/* Premium tag/chip */
+.tag-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.3rem 0.75rem;
+  background: rgba(30, 107, 58, 0.06);
+  border: 1px solid rgba(30, 107, 58, 0.12);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #1E6B3A;
+  transition: all 0.3s ease;
+}
+.tag-premium:hover {
+  background: rgba(30, 107, 58, 0.1);
+  border-color: rgba(30, 107, 58, 0.25);
+}
+
+/* Premium link with arrow */
+.link-premium {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1E6B3A;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.link-premium:hover {
+  gap: 0.75rem;
+  color: #145229;
+}
+.link-premium .link-arrow {
+  transition: transform 0.3s ease;
+}
+.link-premium:hover .link-arrow {
+  transform: translateX(3px);
+}
+
+/* Hero-specific glass panel for text readability */
+.hero-glass-panel {
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Gold accent line for premium sections */
+.gold-accent-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* Light outline button variant (for non-hero sections) */
+.btn-premium-outline-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 1rem 2.25rem;
+  background: transparent;
+  color: var(--ink);
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border-radius: 2px;
+  border: 1px solid rgba(18, 24, 20, 0.35);
+  cursor: pointer;
+  transition: background 0.35s var(--ease-expo), border-color 0.35s var(--ease-expo), color 0.35s var(--ease-expo);
+}
+.btn-premium-outline-light:hover {
+  background: var(--forest-950);
+  border-color: var(--forest-950);
+  color: #FFFFFF;
+}
+
+/* Premium icon container with subtle glow */
+.icon-premium {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.875rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #F0FDF4 0%, #E8F5ED 100%);
+  border: 1px solid rgba(30, 107, 58, 0.12);
+  color: #1E6B3A;
+  transition: all 0.4s ease;
+  box-shadow: 0 1px 3px rgba(30, 107, 58, 0.08);
+}
+.icon-premium:hover {
+  box-shadow: 0 2px 8px rgba(30, 107, 58, 0.15);
+}
+
+/* Premium icon container large */
+.icon-premium-lg {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #F0FDF4 0%, #E8F5ED 100%);
+  border: 1px solid rgba(30, 107, 58, 0.12);
+  color: #1E6B3A;
+  transition: all 0.4s ease;
+  box-shadow: 0 1px 3px rgba(30, 107, 58, 0.08);
+}
+.icon-premium-lg:hover {
+  box-shadow: 0 2px 8px rgba(30, 107, 58, 0.15);
+}
+
+/* Premium section label in gold */
+.section-label-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Smooth section transitions */
+.section-alt {
+  position: relative;
+}
+.section-alt::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Smooth loading transitions */
+@keyframes smooth-appear {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.component-enter {
+  animation: smooth-appear 0.4s ease-out both;
+}
+
+/* ========================================
+   MASTER PLAN DESIGN SYSTEM (v2)
+   Concept: cartographic luxury — surveyor's
+   visual language as the design language.
+   ======================================== */
+
+/* Accessibility: honor reduced-motion globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Heading font utility — replaces repeated inline styles */
+.font-heading {
+  font-family: var(--font-heading), Georgia, serif;
+}
+
+/* Data voice — surveyor's mono for coordinates, distances, specs */
+.font-data {
+  font-family: var(--font-data), 'JetBrains Mono', ui-monospace, monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Chapter eyebrow — mono, letterspaced: "PLOT 02 — THE NUMBERS"
+   Default (light sections): brand green with gold plot number.
+   .eyebrow-plot-dark for dark bands: gold. */
+.eyebrow-plot {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.eyebrow-plot::before,
+.eyebrow-plot::after {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.35;
+}
+.eyebrow-plot .plot-no {
+  color: var(--gold);
+}
+.eyebrow-plot-left {
+  justify-content: flex-start;
+}
+.eyebrow-plot-left::before {
+  display: none;
+}
+.eyebrow-plot-dark {
+  color: rgba(255, 255, 255, 0.55);
+}
+.eyebrow-plot-dark .plot-no {
+  color: var(--gold-light);
+}
+
+/* Display type scale — scale and air, not weight, carry the luxury */
+.display-hero {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(2.75rem, 6.5vw, 6rem);
+  line-height: 1.06;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+  text-wrap: balance;
+}
+.display-title {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  font-weight: 400;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.display-title-dark {
+  color: #FFFFFF;
+}
+/* One italic accent word per heading — max */
+.accent-word {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--brand);
+}
+.accent-word-gold {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--gold);
+}
+
+/* Ghost numeral — oversized chapter/process numbers */
+.ghost-numeral {
+  font-family: var(--font-heading), Georgia, serif;
+  font-size: clamp(4.5rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 1;
+  color: var(--brand);
+  opacity: 0.07;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Plot-grid backgrounds — faint survey grid */
+.plot-grid-light {
+  background-image:
+    linear-gradient(rgba(30, 107, 58, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(30, 107, 58, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+.plot-grid-dark {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Dashed boundary — plot demarcation motif for card hovers */
+.boundary-hover {
+  transition: border-color 0.35s var(--ease-expo), box-shadow 0.35s var(--ease-expo), transform 0.35s var(--ease-expo);
+}
+.boundary-hover:hover {
+  border-style: dashed;
+  border-color: rgba(201, 168, 76, 0.55);
+}
+
+/* Elevation utilities */
+.elev-sm { box-shadow: var(--shadow-sm); }
+.elev-md { box-shadow: var(--shadow-md); }
+.elev-lg { box-shadow: var(--shadow-lg); }
+
+/* Spec table — mono data rows for plot specs (label left, value right) */
+.spec-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px dashed rgba(30, 107, 58, 0.18);
+}
+.spec-row dt {
+  font-family: var(--font-data), ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.spec-row dd {
+  font-family: var(--font-data), ui-monospace, monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ink);
+  text-align: right;
+}
+
+/* Surveyor corner ticks — gold L-marks framing a moment */
+.corner-ticks {
+  position: relative;
+}
+.corner-ticks::before,
+.corner-ticks::after {
+  content: '';
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  pointer-events: none;
+}
+.corner-ticks::before {
+  top: 0;
+  left: 0;
+  border-top: 1px solid rgba(201, 168, 76, 0.8);
+  border-left: 1px solid rgba(201, 168, 76, 0.8);
+}
+.corner-ticks::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.8);
+  border-right: 1px solid rgba(201, 168, 76, 0.8);
+}
+
+/* Scale bar — cartographic signature element */
+.scale-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-data), ui-monospace, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+.scale-bar .scale-line {
+  position: relative;
+  width: 72px;
+  height: 1px;
+  background: currentColor;
+}
+.scale-bar .scale-line::before,
+.scale-bar .scale-line::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  width: 1px;
+  height: 7px;
+  background: currentColor;
+}
+.scale-bar .scale-line::before { left: 0; }
+.scale-bar .scale-line::after { right: 0; }
+
+/* Checkmark list — replaces duplicate feature-card grids */
+.check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.check-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.check-list li::before {
+  content: '✓';
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  margin-top: 0.1rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(201, 168, 76, 0.5);
+  color: var(--gold);
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+.check-list li strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
