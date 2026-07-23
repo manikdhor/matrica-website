@@ -9,8 +9,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
-    // Send the file to your cPanel PHP script!
-    const cpanelReceiverUrl = 'https://s1052.use1.mysecurecloudhost.com/~matricarealestat/receive.php'; // Use your domain or cPanel temp URL here if DNS hasn't fully propagated
+    // Send the file to your NEW cPanel subdomain!
+    const cpanelReceiverUrl = 'https://storage.matricarealestate.com/receive.php';
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const cpanelFormData = new FormData();
