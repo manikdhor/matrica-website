@@ -7,7 +7,9 @@ export async function GET(
   const { path: segments } = await params
   const filePath = segments.join('/')
 
-  // Vercel has a read-only filesystem. Redirect to the static file in /public.
-  // Vercel's global CDN will handle caching and serving the image perfectly.
-  return NextResponse.redirect(new URL(`/uploads/${filePath}`, request.url))
+  // Redirect to the permanent Supabase Storage CDN
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+  const redirectUrl = `${supabaseUrl}/storage/v1/object/public/uploads/${filePath}`
+
+  return NextResponse.redirect(redirectUrl)
 }
