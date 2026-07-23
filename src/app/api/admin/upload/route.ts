@@ -1,7 +1,4 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-export const runtime = 'nodejs';
 
 export async function POST(request: Request) {
   try {
@@ -12,34 +9,27 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    // Send the file to your cPanel PHP script!
+    const cpanelReceiverUrl = 'https://matricarealestate.com/receive.php'; // Use your domain or cPanel temp URL here if DNS hasn't fully propagated
 
-    // Convert File to Buffer
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const cpanelFormData = new FormData();
+    cpanelFormData.append('file', new Blob([buffer], { type: file.type }), file.name);
 
-    // Generate unique filename (same logic you probably already use)
-    const ext = file.name.split('.').pop();
-    const uniqueName = `${file.name.split('.')[0]}-${Date.now()}.${ext}`;
-    
-    // Upload to Supabase Storage
-    const { error } = await supabase.storage
-      .from('uploads')
-      .upload(`2026-07/${uniqueName}`, buffer, {
-        contentType: file.type,
-        upsert: true,
-      });
+    const response = await fetch(cpanelReceiverUrl, {
+      method: 'POST',
+      body: cpanelFormData,
+    });
 
-    if (error) {
-      throw new Error(error.message);
-    }
+    const result = await response.json();
 
-    // Return the path that your database expects
+    if (!response.ok) throw new Error(result.error || 'Upload to storage failed');
+
     return NextResponse.json({ 
-      path: `/api/uploads/2026-07/${uniqueName}` 
+      success: true,
+      url: result.path,
+      path: result.path,
+      filePath: result.path
     });
 
   } catch (error: any) {
