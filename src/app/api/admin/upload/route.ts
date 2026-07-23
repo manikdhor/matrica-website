@@ -10,7 +10,7 @@ export async function POST(request: Request) {
     }
 
     // Send the file to your cPanel PHP script!
-    const cpanelReceiverUrl = 'https://matricarealestate.com/receive.php'; // Use your domain or cPanel temp URL here if DNS hasn't fully propagated
+    const cpanelReceiverUrl = 'https://s1052.use1.mysecurecloudhost.com/~matricarealestat/receive.php'; // Use your domain or cPanel temp URL here if DNS hasn't fully propagated
 
     const buffer = Buffer.from(await file.arrayBuffer());
     const cpanelFormData = new FormData();
